@@ -1,0 +1,7 @@
+version: "3.7"
+services:
+  mongo:
+    container_name: "mongoDB-AWSQuiz"
+    image: mongo:latest
+    ports:
+      - "27017:27017" #Opens the container on machine port 27017 -> docker port 27017 (default for mongo)

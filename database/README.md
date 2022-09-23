@@ -16,3 +16,8 @@ Run `mongosh populateDb` to populate the database with easy questions.
 
 ## Useful info
 The database defaults to the 'test' db.
+
+## Quick Reference Mongosh commands
+Switch DB:``` use <db name> ```   
+Create a collection:``` db.createCollection()```   
+Insert one object into DB: ```db.<collection name>.insertOne()```

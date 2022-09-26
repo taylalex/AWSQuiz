@@ -17,17 +17,15 @@ try{
 
 async function calculateScore(answers) {
     let score = 0
-    
+
     for (const element of answers) {
         const item = await collection.findOne({_id: ObjectId(element._id)})
         console.log(item.correctAnswer + " " + element.answer)
         if(item.correctAnswer === element.answer) {
-            console.log("triggered")
             score++
         }
     }
 
-    console.log(score)
     return score
 }
 

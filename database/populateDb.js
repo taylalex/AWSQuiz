@@ -1,4 +1,4 @@
-db = connect('mongodb://localhost/awsquiz')
+db = connect('mongodb://localhost/AWSQuiz')
 
 db.questions.insertMany([
     {

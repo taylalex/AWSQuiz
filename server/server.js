@@ -1,4 +1,4 @@
-const e = require('express')
+// const e = require('express')
 const express = require('express')
 
 const calculateScore = require('./utils/calculateScore')
@@ -28,6 +28,14 @@ try{
 }
 
 app.get('/fetchEasyQuestions', async (req, res) => {
+    /* TODO: 
+        DONE: Fetch all questions from the db
+        Scrub 'correct-answer' & 'red herring-answer'
+        Find two random answers 
+        Send the image and the now four options back to the user
+    */
+
+
     const cursor = collection.find({difficulty:'easy'})
     const allValues = await cursor.toArray();
     res.json({colelctions:allValues});

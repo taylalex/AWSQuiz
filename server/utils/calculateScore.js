@@ -20,7 +20,7 @@ async function calculateScore(answers) {
 
     for (const element of answers) {
         const item = await collection.findOne({_id: ObjectId(element._id)})
-        console.log(item.correctAnswer + " " + element.answer)
+        
         if(item.correctAnswer === element.answer) {
             score++
         }

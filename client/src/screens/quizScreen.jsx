@@ -1,9 +1,10 @@
-import './App.css';
+import React from 'react'
+import '../App.css';
 // import Button from '@mui/material/Button';
 import { ButtonGroup, Button } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
 
-function App() {
+const QuizScreen = () => {
   const theme = createTheme({
     palette:{
       primary:{
@@ -14,7 +15,7 @@ function App() {
       }
     }
   })
-  const image = require('./AWSQuiz-logo.png')
+  const image = require('../AWSQuiz-logo.png')
   return (
     <div className="App">
       <img src={image} alt={`logo`} style={{height:'12rem', width:'38rem', margin:'3rem'}}/>
@@ -29,4 +30,4 @@ function App() {
   );
 }
 
-export default App;
+export default QuizScreen;

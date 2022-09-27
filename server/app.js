@@ -27,10 +27,11 @@ app.get('/fetchHardQuestions', async (req, res) => {
 });
 
 app.post('/getScore', async (req, res) => {
-  console.log(req.body.answers);
   res.json({ score: await calculateScore(req.body.answers) });
 });
 
 app.get('/', async (req, res) => {
   res.json({ hello: 'world' });
 });
+
+module.exports = app;

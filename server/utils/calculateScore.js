@@ -3,11 +3,12 @@ const { ObjectId } = require('mongodb');
 
 const { getQuestionsWithId } = require('./mongoDB');
 
-const createUserAnswersMap = (incomingAnswers) => {
+const createUserAnswersMap = (userAnswers) => {
   const incomingAnswerMap = new Map();
-  incomingAnswers.forEach((element) => {
+  userAnswers.forEach((element) => {
     incomingAnswerMap.set(element._id, element.answer);
   });
+  return incomingAnswerMap;
 };
 
 const calculateScore = async (userAnswers) => {

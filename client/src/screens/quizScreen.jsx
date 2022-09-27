@@ -1,12 +1,22 @@
-
-import React from 'react'
+import React from 'react';
 import '../App.css';
 // import Button from '@mui/material/Button';
 import { ButtonGroup, Button } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
 
-const QuizScreen = () => {
-  const image = require('../AWSQuiz-logo.png')
+const image = require('../AWSQuiz-logo.png');
+
+function QuizScreen() {
+  const theme = createTheme({
+    palette: {
+      primary: {
+        main: '#FF9900',
+      },
+      secondary: {
+        main: '#FF9900',
+      },
+    },
+  });
   return (
     <div className="App">
       <img src={image} alt="logo" style={{ height: '12rem', width: '38rem', margin: '3rem' }} />

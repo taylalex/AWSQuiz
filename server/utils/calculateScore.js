@@ -1,48 +1,39 @@
 /* eslint-disable no-underscore-dangle */
-const { MongoClient, ObjectId } = require('mongodb');
+const { ObjectId } = require('mongodb');
 
-// MongoDB setup
-const DBCONNECITONSTRING = 'mongodb://localhost:27017';
-const client = new MongoClient(DBCONNECITONSTRING);
-const dbName = 'AWSQuiz';
-const db = client.db(dbName);
-const collection = db.collection('questions');
+const { getQuestionsWithId } = require('./mongoDB');
 
-try {
-  client.connect();
-  console.log('Connected successfully to server');
-} catch (e) {
-  console.log('Error connecting server to ');
-}
+const createUserAnswersMap = (userAnswers) => {
+  const incomingAnswerMap = new Map();
+  userAnswers.forEach((element) => {
+    incomingAnswerMap.set(element._id, element.answer);
+  });
+  return incomingAnswerMap;
+};
 
-async function calculateScore(answers) {
+const calculateScore = async (userAnswers) => {
   let score = 0;
 
-  const questionMap = new Map();
+  // Map {question ID => answer chosen}
+  const userAnswersMap = createUserAnswersMap(userAnswers);
 
-  answers.forEach((element) => {
-    questionMap.set(element._id, element.answer);
-  });
+  // Gets the question IDs from the keyset and turns them to ObjectId types
+  const questionIds = [...userAnswersMap.keys()].map((element) => ObjectId(element));
 
-  const questionObjectIds = [...questionMap.keys()].map((element) => ObjectId(element));
+  // Get questions where the Ids match those that were answered
+  const questionData = await getQuestionsWithId(questionIds);
 
-  const filter = {
-    _id: {
-      $in: questionObjectIds,
-    },
-  };
-
-  const cursor = collection.find(filter);
-  const questionAnswers = await cursor.toArray();
-
-  questionAnswers.forEach((element) => {
-    const userAnswer = questionMap.get(element._id.toString());
-    if (userAnswer === element.correctAnswer) {
+  /* Iterates through question data from DB to check whether user answers
+  match correct answers for given question ID */
+  questionData.forEach((question) => {
+    const currentQuestionId = question._id.toString();
+    const userAnswer = userAnswersMap.get(currentQuestionId);
+    if (userAnswer === question.correctAnswer) {
       score += 1;
     }
   });
 
   return score;
-}
+};
 
 module.exports = calculateScore;

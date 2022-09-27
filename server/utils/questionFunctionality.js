@@ -54,15 +54,13 @@ const shuffleArray = (answers) => {
   return answers;
 };
 
-const formatQuizQuestions = (questions) => {
 /* Parameters: Questions: Array */
-  questions.map((question) => {
-    const questionAnswers = fetchAnswers(question);
-    const shuffledAnswers = shuffleArray(questionAnswers);
+const formatQuizQuestions = (questions) => questions.map((question) => {
+  const questionAnswers = fetchAnswers(question);
+  const shuffledAnswers = shuffleArray(questionAnswers);
 
-    // eslint-disable-next-line no-underscore-dangle
-    return { answers: shuffledAnswers, _id: question._id, image: question.image };
-  });
-};
+  // eslint-disable-next-line no-underscore-dangle
+  return { _id: question._id, answers: shuffledAnswers, image: question.image };
+});
 
 module.exports = formatQuizQuestions;

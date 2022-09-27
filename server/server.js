@@ -1,7 +1,6 @@
-// const e = require('express')
 const express = require('express')
-
 const calculateScore = require('./utils/calculateScore')
+const questionFunctionality = require('./question-functionality')
 const { MongoClient } = require('mongodb')
 
 // Express setup
@@ -28,31 +27,24 @@ try{
 }
 
 app.get('/fetchEasyQuestions', async (req, res) => {
-    /* TODO: 
-        DONE: Fetch all questions from the db
-        Scrub 'correct-answer' & 'red herring-answer'
-        Find two random answers 
-        Send the image and the now four options back to the user
-    */
-
-
     const cursor = collection.find({difficulty:'easy'})
     const allValues = await cursor.toArray();
-    res.json({colelctions:allValues});
+    const formattedQuestion = questionFunctionality.formatQuizQuestions(allValues)
+    res.json({collections:formattedQuestion});
 
 })
 
 app.get('/fetchMediumQuestions', async (req, res) => {
     const cursor = collection.find({ $or: [{difficulty:'medium'}, {difficulty:'easy'}]})
     const allValues = await cursor.toArray();
-    res.json({colelctions:allValues});
+    res.json({collections:allValues});
 
 })
 
 app.get('/fetchHardQuestions', async (req, res) => {
     const cursor = collection.find()
     const allValues = await cursor.toArray();
-    res.json({colelctions:allValues});
+    res.json({collections:allValues});
 
 })
 

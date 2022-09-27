@@ -26,27 +26,26 @@ const formatQuizQuestions = (questions) => {
     /* Parameters: 
         Questions: Array */
     return questions.map(question => {
-        const questionAnswers = fetchQuestionAnswers(question)
+        const questionAnswers = fetchAnswers(question)
         const shuffledAnswers = shuffleArray(questionAnswers)
-        return {answers: shuffledAnswers, _id: question['_id']}
+        return {answers: shuffledAnswers, _id: question['_id'], image: question['image']}
     })
 }
 
 const fetchAnswers = (question) => {
-    //think this could be done in a better way
     let random =   Math.floor(Math.random() * possibleAnswers.length)
     let random2 = random
     while(random == random2){
         random2 = Math.floor(Math.random() * possibleAnswers.length)
     }
 
-    const possibleAnswers = [
+    const answerOptions = [
         question['correctAnswer'],
         question['redHerringAnswer'],
         possibleAnswers[random],
         possibleAnswers[random2],
     ]
-    return possibleAnswers
+    return answerOptions
 }
 
 const shuffleArray = (answers) => {
@@ -62,4 +61,8 @@ const shuffleArray = (answers) => {
     }
 
     return answers
+}
+
+module.exports = {
+    formatQuizQuestions
 }

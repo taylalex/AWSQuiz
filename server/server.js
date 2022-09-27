@@ -1,7 +1,8 @@
 const express = require('express')
-const calculateScore = require('./utils/calculateScore')
-const questionFunctionality = require('./question-functionality')
 const { MongoClient } = require('mongodb')
+
+const formatQuizQuestions = require('./utils/questionFunctionality')
+const calculateScore = require('./utils/calculateScore')
 
 // Express setup
 const app = express()
@@ -15,8 +16,6 @@ const dbName = 'AWSQuiz';
 const db = client.db(dbName);
 const collection = db.collection('questions')
 
-
-
 // Open constant connection 
 try{
     client.connect();
@@ -29,7 +28,7 @@ try{
 app.get('/fetchEasyQuestions', async (req, res) => {
     const cursor = collection.find({difficulty:'easy'})
     const allValues = await cursor.toArray();
-    const formattedQuestion = questionFunctionality.formatQuizQuestions(allValues)
+    const formattedQuestion = formatQuizQuestions(allValues)
     res.json({collections:formattedQuestion});
 
 })

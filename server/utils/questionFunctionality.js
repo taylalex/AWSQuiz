@@ -63,6 +63,4 @@ const shuffleArray = (answers) => {
     return answers
 }
 
-module.exports = {
-    formatQuizQuestions
-}
+module.exports = formatQuizQuestions

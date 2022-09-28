@@ -18,3 +18,17 @@ osascript - "$cwd"  <<EOF
 
 EOF
 cd ..
+
+#server initialisation
+cd server 
+cwd=$(pwd)
+osascript - "$cwd"  <<EOF
+    on run argv -- argv is a list of strings
+        tell application "Terminal"
+            activate
+            do script ("cd " & quoted form of item 1 of argv & "; npm start")
+        end tell
+    end run
+
+EOF
+cd ..

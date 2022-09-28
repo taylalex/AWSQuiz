@@ -1,5 +1,5 @@
 const express = require('express');
-
+const cors = require('cors');
 const { formatQuizQuestions } = require('./utils/questionFunctionality');
 const { calculateScore } = require('./utils/calculateScore');
 const { getQuestionsWithDifficulty } = require('./utils/mongoDB');
@@ -7,6 +7,7 @@ const { getQuestionsWithDifficulty } = require('./utils/mongoDB');
 // Express setup
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 app.get('/fetchEasyQuestions', async (req, res) => {
   const questionData = await getQuestionsWithDifficulty(['easy']);
@@ -27,6 +28,9 @@ app.get('/fetchHardQuestions', async (req, res) => {
 });
 
 app.post('/getScore', async (req, res) => {
+  /* parameters:
+    req.body.answers -> [{_id: <String> (question ID), answer: <String> (answer chosen by user)}]
+  */
   res.json({ score: await calculateScore(req.body.answers) });
 });
 

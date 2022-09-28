@@ -63,4 +63,6 @@ const formatQuizQuestions = (questions) => questions.map((question) => {
   return { _id: question._id, answers: shuffledAnswers, image: question.image };
 });
 
-module.exports = formatQuizQuestions;
+module.exports = {
+  formatQuizQuestions,
+};

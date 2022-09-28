@@ -1,4 +1,5 @@
 const { MongoClient } = require('mongodb');
+
 // MongoDB setup
 const DBCONNECITONSTRING = 'mongodb://localhost:27017';
 const client = new MongoClient(DBCONNECITONSTRING);

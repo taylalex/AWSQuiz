@@ -1,7 +1,7 @@
 const express = require('express');
 
-const formatQuizQuestions = require('./utils/questionFunctionality');
-const calculateScore = require('./utils/calculateScore');
+const { formatQuizQuestions } = require('./utils/questionFunctionality');
+const { calculateScore } = require('./utils/calculateScore');
 const { getQuestionsWithDifficulty } = require('./utils/mongoDB');
 
 // Express setup
@@ -21,7 +21,7 @@ app.get('/fetchMediumQuestions', async (req, res) => {
 });
 
 app.get('/fetchHardQuestions', async (req, res) => {
-  const questionData = getQuestionsWithDifficulty(['easy', 'medium', 'hard']);
+  const questionData = await getQuestionsWithDifficulty(['easy', 'medium', 'hard']);
   const formattedQuestionData = formatQuizQuestions(questionData);
   res.json({ collections: formattedQuestionData });
 });

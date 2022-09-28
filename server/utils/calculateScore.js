@@ -36,4 +36,4 @@ const calculateScore = async (userAnswers) => {
   return score;
 };
 
-module.exports = calculateScore;
+module.exports = { calculateScore };

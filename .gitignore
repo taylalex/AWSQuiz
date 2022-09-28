@@ -21,3 +21,6 @@
 *yarn-error.log*
 
 *jsconfig.json
+
+#env files
+client/.env

@@ -8,6 +8,7 @@ import './App.css';
 // import screens
 import QuizScreen from './screens/quizScreen';
 import HomeScreen from './screens/homeScreen';
+import ScoreScreen from './screens/scoreScreen';
 
 function App() {
   // const image = require('./AWSQuiz-logo.png')
@@ -16,6 +17,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomeScreen />} />
         <Route path="/quiz" element={<QuizScreen />} />
+        <Route path="/score" element={<ScoreScreen />} />
       </Routes>
     </Router>
 

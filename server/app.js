@@ -35,6 +35,12 @@ app.post('/getScore', async (req, res) => {
   /* parameters:
     req.body.answers -> [{_id: <String> (question ID), answer: <String> (answer chosen by user)}]
   */
+  /* TODO:
+    validate the format of the request data (req.body)
+    happy -> pass to calculate score
+    unhappy -> return an error and handle on the front end
+  */
+  console.log(JSON.stringify(req));
   res.json({ score: await calculateScore(req.body.answers) });
 });
 

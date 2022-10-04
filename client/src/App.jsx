@@ -4,20 +4,40 @@ import {
   Routes,
   Route,
 } from 'react-router-dom';
-import './App.css';
+
 // import screens
-import QuizScreen from './screens/quizScreen';
-import HomeScreen from './screens/homeScreen';
-import ScoreScreen from './screens/scoreScreen';
+import QuizScreen from './screens/QuizScreen';
+import HomeScreen from './screens/HomeScreen';
+import ScoreScreen from './screens/ScoreScreen';
+import NotFoundScreen from './screens/NotFoundScreen';
+
+// import components
+import Wrapper from './components/Wrapper';
+
+const dummyAnswers = {
+  answers: [
+    {
+      _id: '6332bb734a68466488f14a33',
+      answer: 'CloudFormation',
+    },
+  ],
+};
 
 function App() {
-  // const image = require('./AWSQuiz-logo.png')
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<HomeScreen />} />
-        <Route path="/quiz" element={<QuizScreen />} />
-        <Route path="/score" element={<ScoreScreen />} />
+        <Route path="/" element={<Wrapper />}>
+          <Route index element={<HomeScreen />} />
+          <Route path="/quiz" element={<QuizScreen />} />
+          <Route
+            path="/score"
+            element={(
+              <ScoreScreen userAnswers={dummyAnswers} />
+          )}
+          />
+        </Route>
+        <Route path="*" element={<NotFoundScreen />} />
       </Routes>
     </Router>
 

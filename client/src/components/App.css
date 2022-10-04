@@ -4,11 +4,7 @@
     text-align: center;
     justify-content: center;
     align-items: center;
-    height:'100vh'
+    height:'100vh';
+    font-family: 'M PLUS Rounded 1c', sans-serif;
 }
 
-.Question {
-    font-family: 'M PLUS Rounded 1c', sans-serif;
-    font-size: 2rem;
-    color:#FF9900;
-}

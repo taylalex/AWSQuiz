@@ -1,33 +1,69 @@
-import React from 'react';
-import '../App.css';
-// import Button from '@mui/material/Button';
-import { ButtonGroup, Button } from '@mui/material';
-import { createTheme } from '@mui/material/styles';
+/* eslint-disable react/prop-types */
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable quotes */
+/* eslint-disable no-unused-vars */
+import React, { useState, useEffect } from 'react';
 
-const image = require('../AWSQuiz-logo.png');
+import { ButtonGroup } from '@mui/material';
 
+import StyledButton from '../components/StyledButton';
+import { getEasyQuestions } from '../functionality/quizApi';
+
+const answersArray = [];
 function QuizScreen() {
-  const theme = createTheme({
-    palette: {
-      primary: {
-        main: '#FF9900',
-      },
-      secondary: {
-        main: '#FF9900',
-      },
-    },
-  });
+  const [questions, setQuestions] = useState([]);
+  const [questionIndex, setQuestionIndex] = useState(0);
+
+  useEffect(() => {
+    getEasyQuestions(setQuestions);
+  }, []);
+
+  function answerClicked(answerIndex) {
+    answersArray.push({
+      _id: questions[questionIndex]._id,
+      answer: questions[questionIndex].answers[answerIndex],
+    });
+    setQuestionIndex(questionIndex + 1);
+  }
+
   return (
-    <div className="App">
-      <img src={image} alt="logo" style={{ height: '12rem', width: '38rem', margin: '3rem' }} />
-      <p className="Question">Space For Question</p>
-      <ButtonGroup varient="text">
-        <Button theme={theme} color="primary" varient="contained" sx={{ color: '#252F3E' }}>ANSWER 1</Button>
-        <Button theme={theme} color="primary" varient="contained" sx={{ color: '#252F3E' }}>ANSWER 2</Button>
-        <Button theme={theme} color="primary" varient="contained" sx={{ color: '#252F3E' }}>ANSWER 3</Button>
-        <Button theme={theme} color="primary" varient="contained" sx={{ color: '#252F3E' }}>ANSWER 4</Button>
-      </ButtonGroup>
-    </div>
+    questions.length === 0 ? ''
+      : (
+        <>
+          <ServiceImage image={questions[questionIndex].image} />
+          <ButtonGroup varient="text">
+            <StyledButton
+              label={questions[questionIndex].answers[0]}
+              onClick={() => answerClicked(0)}
+            />
+            <StyledButton
+              label={questions[questionIndex].answers[1]}
+              onClick={() => answerClicked(1)}
+            />
+            <StyledButton
+              label={questions[questionIndex].answers[2]}
+              onClick={() => answerClicked(2)}
+            />
+            <StyledButton
+              label={questions[questionIndex].answers[3]}
+              onClick={() => answerClicked(3)}
+            />
+          </ButtonGroup>
+        </>
+      )
+  );
+}
+
+function ServiceImage({ image }) {
+  return (
+    <div style={{
+      backgroundImage: `url("${image}")`,
+      backgroundSize: 'cover',
+      marginBottom: '3em',
+      width: '25em',
+      height: '25em',
+    }}
+    />
   );
 }
 

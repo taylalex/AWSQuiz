@@ -1,0 +1,37 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - '*'
+
+jobs:
+  test-frontend:
+    name: Test front-end
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the Repository
+        uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
+      - name: Install dependencies
+        working-directory: ./client
+        run: npm install
+      - name: Run tests
+        working-directory: ./client
+        run: npm run test
+
+  test-backend:
+    name: Test front-end
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the Repository
+        uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
+      - name: Install dependencies
+        working-directory: ./server
+        run: npm install
+      - name: Run tests
+        working-directory: ./server
+        run: npm run test

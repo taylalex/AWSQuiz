@@ -3,6 +3,7 @@ const cors = require('cors');
 const { formatQuizQuestions } = require('./utils/questionFunctionality');
 const { calculateScore } = require('./utils/calculateScore');
 const { getQuestionsWithDifficulty } = require('./utils/mongoDB');
+const { validateGetScoreRequest } = require('./utils/requestValidation');
 
 // Express setup
 const app = express();
@@ -30,12 +31,17 @@ app.get('/fetchHardQuestions', async (req, res) => {
   res.json({ collections: formattedQuestionData });
 });
 
+/* parameters:
+  req.body.answers -> [{_id: <String> (question ID), answer: <String> (answer chosen by user)}]
+*/
 app.post('/getScore', async (req, res) => {
-  console.log(`POST getScore called with request body: ${JSON.stringify(req.body)}`);
-  /* parameters:
-    req.body.answers -> [{_id: <String> (question ID), answer: <String> (answer chosen by user)}]
-  */
-  res.json({ score: await calculateScore(req.body.answers) });
+  if (validateGetScoreRequest(req)) {
+    res.json({ score: await calculateScore(req.body.answers) });
+  } else {
+    /* Return unhappy path here */
+    res.status(400);
+    res.send('Malformed Request retreiving quiz score.');
+  }
 });
 
 app.get('/', async (req, res) => {

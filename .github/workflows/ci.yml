@@ -21,7 +21,7 @@ jobs:
         run: npm run test
 
   test-backend:
-    name: Test front-end
+    name: Test back-end
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the Repository

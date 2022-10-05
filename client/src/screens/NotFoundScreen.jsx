@@ -1,6 +1,6 @@
 import React from 'react';
 
-import image from '../assets/404.png';
+import image from '../assets/not-found-image.png';
 import '../components/App.css';
 
 function NotFoundScreen() {

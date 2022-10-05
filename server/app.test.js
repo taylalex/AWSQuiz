@@ -114,14 +114,18 @@ describe('GET /fetchHardQuestions', () => {
 
 describe('POST /getScore', () => {
   const dummyAnswerData = {
-    answers: [{
-      _id: 'testId1',
-      answer: 'testAnswer1',
-    },
-    {
-      _id: 'testId2',
-      answer: 'testAnswer2',
-    }],
+    answers: [
+      { _id: 'testId1', answer: 'testAnswer1' },
+      { _id: 'testId2', answer: 'testAnswer2' },
+      { _id: 'testId3', answer: 'testAnswer3' },
+      { _id: 'testId4', answer: 'testAnswer4' },
+      { _id: 'testId5', answer: 'testAnswer5' },
+      { _id: 'testId6', answer: 'testAnswer6' },
+      { _id: 'testId7', answer: 'testAnswer7' },
+      { _id: 'testId8', answer: 'testAnswer8' },
+      { _id: 'testId9', answer: 'testAnswer9' },
+      { _id: 'testId410', answer: 'testAnswer10' },
+    ],
   };
   const dummyScoreData = 1;
 

@@ -20,6 +20,7 @@
   "scripts": {
     "start": "node server.js",
     "dev": "./node_modules/nodemon/bin/nodemon.js server.js",
-    "test": "jest --watchAll"
+    "test": "jest --watchAll",
+    "test:ci": "CI=true jest"
   }
 }

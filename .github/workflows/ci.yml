@@ -5,7 +5,7 @@ on:
     branches: [ main ]
 
 env:
-  ENVIRONMENT: TEST
+  ENVIRONMENT: CI
 
 jobs:
   test-frontend:
@@ -21,7 +21,7 @@ jobs:
         run: npm install
       - name: Run tests
         working-directory: ./client
-        run: npm run test
+        run: npm run test:ci
 
   test-backend:
     name: Test back-end
@@ -36,4 +36,4 @@ jobs:
         run: npm install
       - name: Run tests
         working-directory: ./server
-        run: npm run test
+        run: npm run test:ci

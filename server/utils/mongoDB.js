@@ -13,7 +13,7 @@ const collection = db.collection('questions');
 
 // Open constant connection
 
-if (ENVIRONMENT !== 'TEST') {
+if (ENVIRONMENT !== 'CI') {
   try {
     client.connect();
     console.log('Connected successfully to server');

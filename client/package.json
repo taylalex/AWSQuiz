@@ -25,12 +25,14 @@
     "eslint-plugin-react": "^7.31.8",
     "eslint-plugin-react-hooks": "^4.6.0",
     "jest": "^27.5.1",
-    "react-scripts": "5.0.1"
+    "react-scripts": "5.0.1",
+    "react-test-renderer": "^18.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --watchAll",
+    "test": "react-scripts test",
+    "test:ci": "CI=true react-scripts test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

@@ -8,8 +8,8 @@ import StyledButton from '../components/StyledButton';
 function HomeScreen() {
   return (
     <>
-      <p>Welcome to the AWS Quiz!</p>
-      <p>You will be given the logo of multiple AWS services, can you name them all?</p>
+      <p data-testid="welcome-text">Welcome to the AWS Quiz!</p>
+      <p data-testid="info-text">You will be given the logo of multiple AWS services, can you name them all?</p>
       <MenuButtons />
     </>
   );
@@ -23,7 +23,7 @@ function MenuButtons() {
   };
 
   return (
-    <ButtonGroup varient="text">
+    <ButtonGroup data-testid="menu-buttons" varient="text">
       <StyledButton label="Easy" onClick={() => routeChange('/quiz')} />
       <StyledButton label="Medium" />
       <StyledButton label="Hard" />

@@ -124,7 +124,7 @@ describe('POST /getScore', () => {
       { _id: 'testId7', answer: 'testAnswer7' },
       { _id: 'testId8', answer: 'testAnswer8' },
       { _id: 'testId9', answer: 'testAnswer9' },
-      { _id: 'testId410', answer: 'testAnswer10' },
+      { _id: 'testId10', answer: 'testAnswer10' },
     ],
   };
   const dummyScoreData = 1;

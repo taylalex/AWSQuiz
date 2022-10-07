@@ -7,6 +7,7 @@ function NotFoundScreen() {
   return (
     <div className="App">
       <img
+        data-testid="not-found-image"
         src={image}
         alt="not found"
         style={{

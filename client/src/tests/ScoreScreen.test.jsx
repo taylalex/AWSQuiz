@@ -1,9 +1,9 @@
 import {
-  findByText, render, screen, waitFor,
+  render, screen,
 } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
-import React, { memo } from 'react';
+import React from 'react';
 import { createMemoryRouter, RouterProvider } from 'react-router-dom';
 import axios from 'axios';
 import { act } from 'react-dom/test-utils';

@@ -35,6 +35,7 @@ app.get('/fetchHardQuestions', async (req, res) => {
   req.body.answers -> [{_id: <String> (question ID), answer: <String> (answer chosen by user)}]
 */
 app.post('/getScore', async (req, res) => {
+  console.log('POST /getScore called');
   if (validateGetScoreRequest(req)) {
     res.json({ score: await calculateScore(req.body.answers) });
   } else {

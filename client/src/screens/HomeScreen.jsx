@@ -24,7 +24,12 @@ function MenuButtons() {
 
   return (
     <ButtonGroup data-testid="menu-buttons" varient="text">
-      <StyledButton label="Easy" onClick={() => routeChange('/quiz')} />
+      <StyledButton
+        label="Easy"
+        onClick={() => {
+          routeChange('/quiz');
+        }}
+      />
       <StyledButton label="Medium" />
       <StyledButton label="Hard" />
     </ButtonGroup>

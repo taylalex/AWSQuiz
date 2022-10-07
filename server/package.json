@@ -18,8 +18,8 @@
     "supertest": "^6.2.4"
   },
   "scripts": {
-    "start": "node server.js",
-    "dev": "./node_modules/nodemon/bin/nodemon.js server.js",
+    "start": "node src/server.js",
+    "dev": "./node_modules/nodemon/bin/nodemon.js src/server.js",
     "test": "jest --watchAll",
     "test:ci": "CI=true jest"
   }

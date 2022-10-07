@@ -24,7 +24,7 @@ const getUserScore = async ({ userAnswers, setScore }) => {
 };
 
 const getEasyQuestions = async (setQuestions) => {
-  await axios.get('http://localhost:3001/fetchEasyQuestions').then((response) => setQuestions(response.data.collections));
+  await axios.get('http://localhost:3001/getEasyQuestions').then((response) => setQuestions(response.data.collections));
 };
 
 export {

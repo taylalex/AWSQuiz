@@ -31,7 +31,7 @@ function QuizScreen() {
       : (
         <>
           <ServiceImage image={questions[questionIndex].image} />
-          <ButtonGroup varient="text">
+          <ButtonGroup data-testid="quiz-buttons" varient="text">
             <StyledButton
               label={questions[questionIndex].answers[0]}
               onClick={() => answerClicked(0)}
@@ -56,13 +56,15 @@ function QuizScreen() {
 
 function ServiceImage({ image }) {
   return (
-    <div style={{
-      backgroundImage: `url("${image}")`,
-      backgroundSize: 'cover',
-      marginBottom: '3em',
-      width: '25em',
-      height: '25em',
-    }}
+    <div
+      data-testid="service-image"
+      style={{
+        backgroundImage: `url("${image}")`,
+        backgroundSize: 'cover',
+        marginBottom: '3em',
+        width: '25em',
+        height: '25em',
+      }}
     />
   );
 }

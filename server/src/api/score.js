@@ -6,6 +6,9 @@ router.use(cors());
 const { calculateScore } = require('../utils/calculateScore');
 const { validateGetScoreRequest } = require('../utils/requestValidation');
 
+/* parameters:
+  req.body.answers -> [{_id: <String> (question ID), answer: <String> (answer chosen by user)}]
+*/
 router.post('/getScore', async (req, res) => {
   console.log('POST /getScore called');
   if (validateGetScoreRequest(req)) {

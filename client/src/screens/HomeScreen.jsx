@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { ButtonGroup } from '@mui/material';
 
 import StyledButton from '../components/StyledButton';
+import createSession from '../functionality/sessionApi';
 
 function HomeScreen() {
   return (
@@ -23,16 +24,24 @@ function MenuButtons() {
   };
 
   return (
-    <ButtonGroup data-testid="menu-buttons" varient="text">
+    <>
+      <ButtonGroup data-testid="menu-buttons" varient="text">
+        <StyledButton
+          label="Easy"
+          onClick={() => {
+            routeChange('/quiz');
+          }}
+        />
+        <StyledButton label="Medium" />
+        <StyledButton label="Hard" />
+      </ButtonGroup>
       <StyledButton
-        label="Easy"
+        label="Test"
         onClick={() => {
-          routeChange('/quiz');
+          createSession();
         }}
       />
-      <StyledButton label="Medium" />
-      <StyledButton label="Hard" />
-    </ButtonGroup>
+    </>
   );
 }
 

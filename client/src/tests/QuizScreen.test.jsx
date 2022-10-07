@@ -1,4 +1,6 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import {
+  render, screen,
+} from '@testing-library/react';
 import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
@@ -60,27 +62,27 @@ function expectButtonsToContainAnswers(buttons, answers) {
 describe('Quiz screen', () => {
   it('should render service image', async () => {
     memoryRouterSetup();
-    const serviceImage = await waitFor(() => screen.getByTestId('service-image'));
-    expect(serviceImage).toBeTruthy();
+    const serviceImage = await screen.findByTestId('service-image');
+    expect(serviceImage).toBeInTheDocument();
   });
 
   describe('Quiz buttons', () => {
     it('should render quiz button group', async () => {
       memoryRouterSetup();
-      const quizButtons = await waitFor(() => screen.getByTestId('quiz-buttons'));
-      expect(quizButtons).toBeTruthy();
+      const quizButtons = await screen.findByTestId('quiz-buttons');
+      expect(quizButtons).toBeInTheDocument();
     });
 
     it('should render all quiz buttons', async () => {
       memoryRouterSetup();
-      const quizButtons = await waitFor(() => screen.getByTestId('quiz-buttons'));
+      const quizButtons = await screen.findByTestId('quiz-buttons');
 
       expectButtonsToContainAnswers(quizButtons.children, firstQuestionDummyAnswers);
     });
 
     it('should change question when first answer button clicked', async () => {
       memoryRouterSetup();
-      const quizButtons = await waitFor(() => screen.getByTestId('quiz-buttons'));
+      const quizButtons = await screen.findByTestId('quiz-buttons');
 
       const firstAnswerButton = quizButtons.firstChild;
 
@@ -93,7 +95,7 @@ describe('Quiz screen', () => {
 
     it('should change question when second answer button clicked', async () => {
       memoryRouterSetup();
-      const quizButtons = await waitFor(() => screen.getByTestId('quiz-buttons'));
+      const quizButtons = await screen.findByTestId('quiz-buttons');
 
       const secondAnswerButton = quizButtons.children[1];
 
@@ -106,7 +108,7 @@ describe('Quiz screen', () => {
 
     it('should change question when third answer button clicked', async () => {
       memoryRouterSetup();
-      const quizButtons = await waitFor(() => screen.getByTestId('quiz-buttons'));
+      const quizButtons = await screen.findByTestId('quiz-buttons');
 
       const thirdAnswerButton = quizButtons.children[2];
 
@@ -119,7 +121,7 @@ describe('Quiz screen', () => {
 
     it('should change question when fourth answer button clicked', async () => {
       memoryRouterSetup();
-      const quizButtons = await waitFor(() => screen.getByTestId('quiz-buttons'));
+      const quizButtons = await screen.findByTestId('quiz-buttons');
 
       const fourthAnswerButton = quizButtons.children[3];
 

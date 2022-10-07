@@ -3,6 +3,7 @@ import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import { createMemoryRouter, RouterProvider } from 'react-router-dom';
+import { act } from 'react-dom/test-utils';
 import HomeScreen from '../screens/HomeScreen';
 
 function memoryRouterSetup() {
@@ -40,7 +41,7 @@ describe('Home screen', () => {
 
   it('should render menu button group', () => {
     const menuButtons = screen.getByTestId('menu-buttons');
-    expect(menuButtons).toBeTruthy();
+    expect(menuButtons).toBeInTheDocument();
   });
 
   describe('Easy button', () => {
@@ -50,12 +51,14 @@ describe('Home screen', () => {
       expect(easyButton.innerHTML).toContain('Easy');
     });
 
-    it('should change path to /quiz when clicked', () => {
+    it('should change path to /quiz when clicked', async () => {
       const menuButtons = screen.getByTestId('menu-buttons');
       const easyButton = menuButtons.children[0];
-      userEvent.click(easyButton);
-      const quizPageText = screen.getByText('Dummy quiz page');
-      expect(quizPageText).toBeTruthy();
+      act(() => {
+        userEvent.click(easyButton);
+      });
+      const quizPageText = await screen.findByText('Dummy quiz page');
+      expect(quizPageText).toBeInTheDocument();
     });
   });
 

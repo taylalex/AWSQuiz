@@ -12,6 +12,6 @@ describe('Not found screen', () => {
 
   it('renders \'404 Not Found\' image', () => {
     const notFoundImage = screen.getByTestId('not-found-image');
-    expect(notFoundImage).toBeTruthy();
+    expect(notFoundImage).toBeInTheDocument();
   });
 });

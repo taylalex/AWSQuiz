@@ -16,13 +16,11 @@ describe('Wrapper component', () => {
 
   it('renders the AWS quiz logo', () => {
     const logo = screen.getByTestId('aws-quiz-logo');
-    // Check that logo exists
-    expect(logo).toBeTruthy();
+    expect(logo).toBeInTheDocument();
   });
 
   it('has link to home', async () => {
     const link = screen.getByTestId('home-link');
-    // Check that link exists
-    expect(link).toBeTruthy();
+    expect(link).toBeInTheDocument();
   });
 });

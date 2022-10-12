@@ -1,14 +1,14 @@
 const request = require('supertest');
-const app = require('./app');
+const app = require('../app');
 
-const { getQuestionsWithDifficulty } = require('./utils/mongoDB');
-const { formatQuizQuestions } = require('./utils/questionFunctionality');
-const { calculateScore } = require('./utils/calculateScore');
+const { getQuestionsWithDifficulty } = require('../utils/mongoDB');
+const { formatQuizQuestions } = require('../utils/questionFunctionality');
+const { calculateScore } = require('../utils/calculateScore');
 
 // Mocks
-jest.mock('./utils/questionFunctionality');
-jest.mock('./utils/mongoDB');
-jest.mock('./utils/calculateScore');
+jest.mock('../utils/questionFunctionality');
+jest.mock('../utils/mongoDB');
+jest.mock('../utils/calculateScore');
 
 describe('GET /', () => {
   it('Should return 200 with hello: world', () => request(app)
@@ -42,7 +42,7 @@ describe('GET /fetchEasyQuestions', () => {
   });
 
   it('Should return 200 with formatted question data', () => request(app)
-    .get('/fetchEasyQuestions')
+    .get('/getEasyQuestions')
     .expect('Content-Type', 'application/json; charset=utf-8')
     .expect(200)
     .then((response) => {
@@ -72,7 +72,7 @@ describe('GET /fetchMediumQuestions', () => {
   });
 
   it('Should return 200 with formatted question data', () => request(app)
-    .get('/fetchMediumQuestions')
+    .get('/getMediumQuestions')
     .expect('Content-Type', 'application/json; charset=utf-8')
     .expect(200)
     .then((response) => {
@@ -82,7 +82,7 @@ describe('GET /fetchMediumQuestions', () => {
     }));
 });
 
-describe('GET /fetchHardQuestions', () => {
+describe('GET /getHardQuestions', () => {
   const dummyQuestionData = {
     correctAnswer: 'testCorrectAnswer',
     redHerringAnswer: 'testRedHerringAnswer',
@@ -102,7 +102,7 @@ describe('GET /fetchHardQuestions', () => {
   });
 
   it('Should return 200 with formatted question data', () => request(app)
-    .get('/fetchHardQuestions')
+    .get('/getHardQuestions')
     .expect('Content-Type', 'application/json; charset=utf-8')
     .expect(200)
     .then((response) => {

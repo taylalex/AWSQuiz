@@ -1,0 +1,82 @@
+openapi: '3.0.0'
+info:
+  version: '1.0.0'
+  title: 'AWS Quiz API'
+  description: API for the AWS Quiz project
+
+paths:
+  /getEasyQuestions:
+    get:
+      summary: Get the easy question set
+      tags:
+        - questions
+      responses:
+        '200':
+          description: List of easy question objects
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Questions'
+  /getMediumQuestions:
+    get:
+      summary: Get the medium question set
+      tags:
+        - questions
+      responses:
+        '200':
+          description: List of medium question objects
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Questions'
+  /getHardQuestions:
+    get:
+      summary: Get the hard question set
+      tags:
+        - questions
+      responses:
+        '200':
+          description: List of hard question objects
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Questions'
+components:
+  schemas:
+    Answers:
+      description: The array of answers
+      type: array
+      items:
+        type: string
+    Question:
+      description: The question object
+      type: object
+      properties:
+        _id:
+          description: The question id
+        answers:
+          type: array
+          $ref: '#/components/schemas/Answers'
+
+    Questions:
+      description: The list of question objects
+      type: array
+      items:
+        type: object
+        $ref: '#/components/schemas/Question'
+    
+    Error:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          description: A human readable error message
+          type: string
+  securitySchemes:
+    ApiKey:
+      type: apiKey
+      in: header
+      name: X-Api-Key
+security:
+  - ApiKey: []

@@ -1,4 +1,4 @@
-const { validateRequestFormat, validateAnswersFormat, validateGetScoreRequest } = require('../utils/requestValidation');
+const { validateRequestFormat, validateAnswersFormat, validatePostScoreRequest } = require('../utils/requestValidation');
 
 const validateRequestFormatCases = [
 
@@ -22,9 +22,9 @@ describe.each([
 });
 
 describe.each([
-  [{ answers: [] }, { _id: '1', answer: 'dummyAnswer' }, 10, true, 'Pass Validation '],
-  [{ answers: [] }, { _id: '1', answer: 'dummyAnswer' }, 9, false, 'Fail Validation (Incorrect number of answers)'],
-  [{ answers: [] }, { id: '1', answers: 'dummyAnswer' }, 1, false, 'Fail Validation (Missing required feild \'_id\')'],
+  [{ answers: [], sessionId: 'test' }, { _id: '1', answer: 'dummyAnswer' }, 10, true, 'Pass Validation '],
+  [{ answers: [], sessionId: 'test' }, { _id: '1', answer: 'dummyAnswer' }, 9, false, 'Fail Validation (Incorrect number of answers)'],
+  [{ answers: [], sessionId: 'test' }, { id: '1', answers: 'dummyAnswer' }, 1, false, 'Fail Validation (Missing required feild \'_id\')'],
 ])('requestValidation.validateAnswersFormat', (testValue, dummyAnswerValue, arrayLength, expectedValue, message) => {
   for (let i = 0; i < arrayLength; i += 1) {
     testValue.answers.push(dummyAnswerValue);
@@ -37,18 +37,18 @@ describe.each([
 });
 
 describe.each([
-  [{ body: { answers: [] } }, { _id: '1', answer: 'dummyAnswer' }, 10, true, 'Pass Validation'],
-  [{ headers: { answers: [] } }, { _id: '1', answer: 'dummyAnswer' }, 0, false, 'Fail Validation (Body does not exist)'],
-  [{ body: { answers: [] } }, { _id: '1', answer: 'dummyAnswer' }, 1, false, 'Fail Validation (Answers are of incorrect length)'],
-  [{ body: { responses: [] } }, { _id: '1', answer: 'dummyAnswer' }, 1, false, 'Fail Validation (Answers does not exist)'],
-])('requestValidation.validateGetScoreRequest', (testValue, dummyAnswerValue, arrayLength, expectedValue, message) => {
+  [{ body: { answers: [], sessionId: 'test' } }, { _id: '1', answer: 'dummyAnswer' }, 10, true, 'Pass Validation'],
+  [{ headers: { answers: [], sessionId: 'test' } }, { _id: '1', answer: 'dummyAnswer' }, 0, false, 'Fail Validation (Body does not exist)'],
+  [{ body: { answers: [], sessionId: 'test' } }, { _id: '1', answer: 'dummyAnswer' }, 1, false, 'Fail Validation (Answers are of incorrect length)'],
+  [{ body: { responses: [], sessionId: 'test' } }, { _id: '1', answer: 'dummyAnswer' }, 1, false, 'Fail Validation (Answers does not exist)'],
+])('requestValidation.validatePostScoreRequest', (testValue, dummyAnswerValue, arrayLength, expectedValue, message) => {
   if (Object.keys(testValue).includes('body') && Object.keys(testValue.body).includes('answers')) {
     for (let i = 0; i < arrayLength; i += 1) {
       testValue.body.answers.push(dummyAnswerValue);
     }
   }
 
-  const actualValue = validateGetScoreRequest(testValue);
+  const actualValue = validatePostScoreRequest(testValue);
   console.log(`actual value: ${actualValue}`);
   test(`validates http request: ${message}`, () => {
     // console.log(testValue);

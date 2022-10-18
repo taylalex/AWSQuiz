@@ -6,11 +6,13 @@ import React, { useState, useEffect } from 'react';
 
 import { ButtonGroup } from '@mui/material';
 
+import { useParams } from 'react-router-dom';
 import StyledButton from '../components/StyledButton';
-import { getEasyQuestions } from '../functionality/quizApi';
+import { getEasyQuestions, postUserAnswers } from '../functionality/quizApi';
 
 const answersArray = [];
 function QuizScreen() {
+  const { sessionId } = useParams();
   const [questions, setQuestions] = useState([]);
   const [questionIndex, setQuestionIndex] = useState(0);
 
@@ -19,11 +21,18 @@ function QuizScreen() {
   }, []);
 
   function answerClicked(answerIndex) {
+    console.log(sessionId);
     answersArray.push({
       _id: questions[questionIndex]._id,
       answer: questions[questionIndex].answers[answerIndex],
     });
     setQuestionIndex(questionIndex + 1);
+    console.log(questionIndex);
+    console.log(questions.length);
+    if (questionIndex === questions.length - 1) {
+      console.log('triggered');
+      postUserAnswers(answersArray, sessionId);
+    }
   }
 
   return (

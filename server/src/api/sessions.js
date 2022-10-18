@@ -6,7 +6,9 @@ router.use(cors());
 
 router.post('/createSession', async (req, res) => {
   console.log('POST /createSession called');
-  createSession();
+  const sessionId = createSession();
+  console.log(`SessionId: ${sessionId}`);
+  res.json({ sessionId });
 });
 
 module.exports = router;

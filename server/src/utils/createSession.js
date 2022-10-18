@@ -1,8 +1,10 @@
 const { v4: uuid } = require('uuid');
+const { createSessionWithId } = require('./mongoDB');
 
 const createSession = () => {
   const sessionId = uuid();
-  console.log(sessionId);
+  createSessionWithId(sessionId);
+  return sessionId;
 };
 
 module.exports = createSession;

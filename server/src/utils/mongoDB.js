@@ -9,7 +9,6 @@ const DBCONNECITONSTRING = 'mongodb://localhost:27017';
 const client = new MongoClient(DBCONNECITONSTRING);
 const dbName = 'AWSQuiz';
 const db = client.db(dbName);
-const collection = db.collection('questions');
 
 // Open constant connection
 
@@ -23,6 +22,8 @@ if (ENVIRONMENT !== 'CI') {
 }
 
 const getQuestionsWithDifficulty = async (difficulties) => {
+  const collection = db.collection('questions');
+
   const filter = {
     difficulty: {
       $in: difficulties,
@@ -36,6 +37,8 @@ const getQuestionsWithDifficulty = async (difficulties) => {
 };
 
 const getQuestionsWithId = async (questionIds) => {
+  const collection = db.collection('questions');
+
   const filter = {
     _id: {
       $in: questionIds,
@@ -48,7 +51,46 @@ const getQuestionsWithId = async (questionIds) => {
   return questionData;
 };
 
+const createSessionWithId = async (sessionId) => {
+  const collection = db.collection('sessions');
+
+  const document = {
+    sessionId,
+    score: 0,
+    finished: false,
+  };
+
+  await collection.insertOne(document);
+};
+
+const updateScoreToSessionWithId = async (sessionId, score) => {
+  const collection = db.collection('sessions');
+
+  const filter = { sessionId };
+
+  const updateDocument = {
+    $set: {
+      score,
+    },
+  };
+
+  await collection.updateOne(filter, updateDocument);
+};
+
+const getScoreFromSessionWithId = async (sessionId) => {
+  const collection = db.collection('sessions');
+
+  const filter = { sessionId };
+
+  const sessionData = await collection.findOne(filter);
+
+  return sessionData.score;
+};
+
 module.exports = {
   getQuestionsWithDifficulty,
   getQuestionsWithId,
+  createSessionWithId,
+  updateScoreToSessionWithId,
+  getScoreFromSessionWithId,
 };

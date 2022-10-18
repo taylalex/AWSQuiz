@@ -1,16 +1,17 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import { ButtonGroup } from '@mui/material';
-import { getUserScore } from '../functionality/quizApi';
+import { getScore } from '../functionality/quizApi';
 import StyledButton from '../components/StyledButton';
 
-function ScoreScreen({ userAnswers }) {
+function ScoreScreen() {
+  const { sessionId } = useParams();
   const [score, setScore] = useState(-1);
 
   useEffect(() => {
-    getUserScore({ userAnswers, setScore });
+    getScore(setScore, sessionId);
   }, []);
 
   return (

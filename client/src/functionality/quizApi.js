@@ -17,10 +17,25 @@ const axios = require('axios');
 //   ],
 // };
 
-const getUserScore = async ({ userAnswers, setScore }) => {
+const postUserAnswers = async (userAnswers, sessionId) => {
+  const req = {
+    answers: userAnswers,
+    sessionId,
+  };
   /* parameters
     userAnswers: format on ../../server/server.js endpoint */
-  await axios.post('http://localhost:3001/getScore', userAnswers).then((response) => setScore(response.data.score));
+  await axios.post('http://localhost:3001/postAnswers', req);
+};
+
+const getScore = async (setScore, sessionId) => {
+  const req = {
+    sessionId,
+  };
+
+  await axios.post('http://localhost:3001/getScore', req).then((response) => {
+    console.log(response.data.score);
+    setScore(response.data.score);
+  });
 };
 
 const getEasyQuestions = async (setQuestions) => {
@@ -28,6 +43,7 @@ const getEasyQuestions = async (setQuestions) => {
 };
 
 export {
-  getUserScore,
+  postUserAnswers,
+  getScore,
   getEasyQuestions,
 };

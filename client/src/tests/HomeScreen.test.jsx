@@ -8,7 +8,7 @@ import HomeScreen from '../screens/HomeScreen';
 
 function memoryRouterSetup() {
   const routes = [{
-    path: '/quiz',
+    path: '/quiz/:sessionId',
     element: <p>Dummy quiz page</p>,
   },
   {

@@ -3,35 +3,43 @@
 /* eslint-disable quotes */
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import { ButtonGroup } from '@mui/material';
 
-import { useParams } from 'react-router-dom';
 import StyledButton from '../components/StyledButton';
 import { getEasyQuestions, postUserAnswers } from '../functionality/quizApi';
 
-const answersArray = [];
 function QuizScreen() {
+  const navigate = useNavigate();
   const { sessionId } = useParams();
   const [questions, setQuestions] = useState([]);
   const [questionIndex, setQuestionIndex] = useState(0);
+  const [answersArray, setAnswersArray] = useState([]);
+
+  const routeChange = (path) => {
+    navigate(`${path}`);
+  };
 
   useEffect(() => {
     getEasyQuestions(setQuestions);
   }, []);
 
   function answerClicked(answerIndex) {
-    console.log(sessionId);
-    answersArray.push({
-      _id: questions[questionIndex]._id,
-      answer: questions[questionIndex].answers[answerIndex],
+    setAnswersArray(() => {
+      const newAnswersArray = answersArray;
+      newAnswersArray.push({
+        _id: questions[questionIndex]._id,
+        answer: questions[questionIndex].answers[answerIndex],
+      });
+
+      return newAnswersArray;
     });
     setQuestionIndex(questionIndex + 1);
-    console.log(questionIndex);
-    console.log(questions.length);
+
     if (questionIndex === questions.length - 1) {
-      console.log('triggered');
       postUserAnswers(answersArray, sessionId);
+      routeChange(`/score/${sessionId}`);
     }
   }
 

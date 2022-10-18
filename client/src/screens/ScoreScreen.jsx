@@ -8,18 +8,22 @@ import StyledButton from '../components/StyledButton';
 
 function ScoreScreen() {
   const { sessionId } = useParams();
-  const [score, setScore] = useState(-1);
+  const [score, setScore] = useState('loading...');
+
+  function fetchScore() {
+    getScore(setScore, sessionId);
+  }
 
   useEffect(() => {
-    getScore(setScore, sessionId);
+    setTimeout(() => fetchScore(), 2000);
   }, []);
 
   return (
     <>
       <p data-testid="score-text" className="Question">
         You Scored:
+        {' '}
         {score}
-        !
       </p>
       <RestartButton />
     </>

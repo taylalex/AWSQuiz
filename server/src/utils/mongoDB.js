@@ -71,6 +71,7 @@ const updateScoreToSessionWithId = async (sessionId, score) => {
   const updateDocument = {
     $set: {
       score,
+      finished: true,
     },
   };
 

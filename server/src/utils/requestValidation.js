@@ -1,4 +1,3 @@
-const { request } = require('express');
 const { Validator } = require('jsonschema');
 
 const v = new Validator();
@@ -44,7 +43,7 @@ const validateAnswersFormat = (answers) => {
           $ref: '/singleAnswer',
         },
         minItems: 10,
-        maxItems: 10,
+        maxItems: 11,
       },
       sessionId: { type: 'string' },
     },

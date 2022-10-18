@@ -43,10 +43,11 @@ const validateAnswersFormat = (answers) => {
           $ref: '/singleAnswer',
         },
         minItems: 10,
-        maxItems: 10,
+        maxItems: 11,
       },
+      sessionId: { type: 'string' },
     },
-    required: ['answers'],
+    required: ['answers', 'sessionId'],
   };
 
   v.addSchema(singleAnswerSchema, '/singleAnswer');
@@ -55,17 +56,19 @@ const validateAnswersFormat = (answers) => {
   return { valid: false, errorMessages: validation.errors };
 };
 
-const validateGetScoreRequest = (req) => {
+const validatePostScoreRequest = (req) => {
   /* Validate the request has body */
   const requestIsValid = validateRequestFormat(req).valid;
   if (requestIsValid === false) { console.log('request invalid'); return false; }
 
   /* Validate that the answers exist in the body */
   const { body } = req;
-  const bodyIsValid = validateAnswersFormat(body).valid;
+  const validate = validateAnswersFormat(body);
+  console.log(validate.errorMessages);
+  const bodyIsValid = validate.valid;
   if (bodyIsValid === false) { return false; }
   // console.log('returning true');
   return true;
 };
 
-module.exports = { validateRequestFormat, validateAnswersFormat, validateGetScoreRequest };
+module.exports = { validateRequestFormat, validateAnswersFormat, validatePostScoreRequest };

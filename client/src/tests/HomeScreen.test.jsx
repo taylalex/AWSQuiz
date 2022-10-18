@@ -4,11 +4,16 @@ import userEvent from '@testing-library/user-event';
 import React from 'react';
 import { createMemoryRouter, RouterProvider } from 'react-router-dom';
 import { act } from 'react-dom/test-utils';
+import axios from 'axios';
 import HomeScreen from '../screens/HomeScreen';
 
+jest.mock('axios');
+
 function memoryRouterSetup() {
+  axios.post.mockResolvedValueOnce({ data: { sessionId: 'testSession' } });
+
   const routes = [{
-    path: '/quiz',
+    path: '/quiz/:sessionId',
     element: <p>Dummy quiz page</p>,
   },
   {

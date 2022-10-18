@@ -24,24 +24,16 @@ function MenuButtons() {
   };
 
   return (
-    <>
-      <ButtonGroup data-testid="menu-buttons" varient="text">
-        <StyledButton
-          label="Easy"
-          onClick={() => {
-            routeChange('/quiz');
-          }}
-        />
-        <StyledButton label="Medium" />
-        <StyledButton label="Hard" />
-      </ButtonGroup>
+    <ButtonGroup data-testid="menu-buttons" varient="text">
       <StyledButton
-        label="Test"
-        onClick={() => {
-          createSession();
+        label="Easy"
+        onClick={async () => {
+          await createSession().then((sessionId) => routeChange(`/quiz/${sessionId}`));
         }}
       />
-    </>
+      <StyledButton label="Medium" />
+      <StyledButton label="Hard" />
+    </ButtonGroup>
   );
 }
 

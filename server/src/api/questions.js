@@ -10,7 +10,6 @@ router.get('/getEasyQuestions', async (req, res) => {
   console.log('GET getEasyQuestions called');
   const questionData = await getQuestionsWithDifficulty(['easy']);
   const formattedQuestionData = formatQuizQuestions(questionData);
-  console.log(formattedQuestionData);
   res.json({ collections: formattedQuestionData });
 });
 

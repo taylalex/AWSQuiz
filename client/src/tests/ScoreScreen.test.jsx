@@ -1,5 +1,5 @@
 import {
-  render, screen,
+  render, screen, waitFor,
 } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
@@ -23,8 +23,8 @@ function memoryRouterSetup() {
   axios.post.mockResolvedValueOnce(dummyScoreData);
 
   const routes = [{
-    path: '/score',
-    element: <ScoreScreen userAnswers="test" />,
+    path: '/score/:sessionId',
+    element: <ScoreScreen />,
   },
   {
     path: '/',
@@ -32,7 +32,7 @@ function memoryRouterSetup() {
   }];
 
   const router = createMemoryRouter(routes, {
-    initialEntries: ['/score'],
+    initialEntries: ['/score/testSession'],
     initialIndex: 0,
   });
 
@@ -46,7 +46,9 @@ function memoryRouterSetup() {
 describe('Score screen', () => {
   it('should render score text', async () => {
     memoryRouterSetup();
-    const scoreText = await screen.findByText(`You Scored:${dummyScore}!`);
+    const scoreText = await screen.findByText(`You Scored: ${dummyScore}`, {}, {
+      timeout: 3000,
+    });
     expect(scoreText).toBeInTheDocument();
   });
 
